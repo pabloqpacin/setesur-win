@@ -13,17 +13,15 @@
   - [5. Instalación de aplicaciones con WinGet \& PowerShell](#5-instalación-de-aplicaciones-con-winget--powershell)
   - [6. ~~Habilitar SSH~~](#6-habilitar-ssh)
   - [7. ~~Contener spyware de Microsoft~~](#7-contener-spyware-de-microsoft)
+- [Scripts en repo](#scripts-en-repo)
 
 
 ## 1. Instalación de Windows 10
 
 - Windows 10 Pro
-- ...
-- Recomiendo dos particiones: `C:` y `D:`
-  - `C:` tendrá el sistema Windows (~100GB)
-  - `D:` estará a disposición del usuario
-- ...
-- Cuenta Microsoft Online NO: Cuenta Local `no@thankyou.com`
+    - Recomiendo separar los datos del sistema y los datos del usuario en dos particiones (`C:` y `D:`)
+    - Cuenta Microsoft Online NO: Cuenta Local `no@thankyou.com`
+    - ...
 
 <!-- ![img](img?) -->
 
@@ -78,7 +76,7 @@ winget upgrade --all
 ```
 - Si tuviéramos problemas, podemos cambiar la configuración de winget con `winget settings` en el bloc de notas. Yo podría recomendar esta aunque si no hace falta, quizá mejor no tocar.
 
-```json
+```jsonc
 {
   // "source": { "autoUpdateIntervalInMinutes": 5 },
   "telemetry": { "disable": true },
@@ -163,6 +161,16 @@ oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\catppuccin.omp.json" | Invo
 # De vuelta en la terminal cargamos de nuevo el $PROFILE
 .$PROFILE
 hola
+```
+
+- Algunos comandos últiles
+
+```ps1
+# Definición de funciones y comandos
+(Get-Command hola).Definition
+
+# Info de almacenamiento
+Get-PSDrive || Get-Volume
 ```
 
 ### 4.3 ~~VSCode~~
@@ -344,3 +352,17 @@ code $env:SystemRoot\System32\drivers\etc\hosts
 ```
 
 </details>
+
+
+---
+
+# Scripts en repo
+
+- NOTA: el symlink del $PROFILE solo puede hacerse si PowerShell se ejecutaba como Administrador para correr el script -- recomiendo abrir PowerShell5 como Administrador directamente
+
+```ps1
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/pabloqpacin/setesur-win/main/scripts/Win10-base.ps1" -OutFile "$env:HOMEPATH\setup.ps1"
+Set-ExecutionPolicy Unrestricted -Scope Process
+cd $env:HOMEPATH
+.\setup.ps1
+```
