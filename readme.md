@@ -1,0 +1,1 @@
+/home/pabloqpacin/Setesur/OPS/Windows/Win10-setup.md
